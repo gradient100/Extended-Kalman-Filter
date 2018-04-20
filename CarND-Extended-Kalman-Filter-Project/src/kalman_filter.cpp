@@ -54,7 +54,29 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   TODO:
     * update the state by using Extended Kalman Filter equations
   */
-    MatrixXd y = z - h(x_);
+    // Normalize phi for z
+    VectorXd z_copy = z;
+    double phi = z[1];
+    double pi = atan(1)*4;
+    bool normalized = false;
+    while (!(phi >= -1*pi-0.005 && phi <= pi+0.005))
+    {
+      while (phi < -1*pi)
+          phi += 2*pi;
+      while (phi > pi)
+          phi -= 2*pi; 
+      normalized = true;
+    }
+    z_copy[1] = phi;
+
+    if (normalized)
+    {
+      cout << " Normalized phi for z!" << endl;
+      cout << "\t" << "Old phi : " << z[1] << endl;
+      cout << "\t" << "New phi : " << z_copy[1] << endl;
+    }
+
+    MatrixXd y = z_copy - h(x_);
     MatrixXd H_t = H_.transpose();
     MatrixXd S = H_ * P_ * H_t + R_;
     MatrixXd S_i = S.inverse();
