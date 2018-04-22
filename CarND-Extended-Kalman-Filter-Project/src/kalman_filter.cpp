@@ -77,12 +77,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
     z_copy[1] = phi;
 
-    if (normalized)
-    {
-      cout << " Normalized phi for z!" << endl;
-      cout << "\t" << "Old phi : " << z[1] << endl;
-      cout << "\t" << "New phi : " << z_copy[1] << endl;
-    }
+    // if (normalized)
+    // {
+    //   cout << " Normalized phi for z!" << endl;
+    //   cout << "\t" << "Old phi : " << z[1] << endl;
+    //   cout << "\t" << "New phi : " << z_copy[1] << endl;
+    // }
 
     MatrixXd y = z_copy - h(x_);
     MatrixXd H_t = H_.transpose();
@@ -109,7 +109,7 @@ VectorXd KalmanFilter::h(const VectorXd &x) {
   
   double rho = sqrt (px*px + py*py);
   if (fabs(rho) < 0.001) {
-    cout << "rho = 0 when calculating h function";
+  //  cout << "rho = 0 when calculating h function";
     rho = 0.001;
     //return z; 
   }
@@ -117,14 +117,14 @@ VectorXd KalmanFilter::h(const VectorXd &x) {
   if (fabs(px) < 0.001)
     phi = atan2(py,0.001);
   else phi = atan2(py,px);
-  cout << "py = " << py << endl;
-  cout << "px = " << px << endl;
-  cout << "phi : " << phi << endl;
+  // cout << "py = " << py << endl;
+  // cout << "px = " << px << endl;
+  // cout << "phi : " << phi << endl;
  
   double rho_dot = (px*vx + py*vy) / rho;
-  cout << "(px*vx + py*vy) = " << (px*vx + py*vy) << endl;
-  cout << "rho = " << rho << endl;
-  cout << "rho_dot = " << rho_dot << endl;
+  // cout << "(px*vx + py*vy) = " << (px*vx + py*vy) << endl;
+  // cout << "rho = " << rho << endl;
+  // cout << "rho_dot = " << rho_dot << endl;
 
   
   z <<  rho, phi, rho_dot;

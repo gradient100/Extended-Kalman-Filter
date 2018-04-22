@@ -95,7 +95,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
         }
         ekf_.x_ << rho * cos(phi), rho * sin(phi), 0, 0;
 
-        cout << "phi : " << phi << endl;
+        //cout << "phi : " << phi << endl;
         cout << "x_ initialized = " << endl << ekf_.x_ << endl;
         cout << "P_ initialized = " << endl << ekf_.P_ << endl;
 
@@ -157,12 +157,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
     cout << endl << "**********************************************************************************" <<endl;
     cout << " Time Step = " << timeStep++ << endl;
-    cout << endl << "dt : " << dt << endl;
+    //cout << endl << "dt : " << dt << endl;
 
     ekf_.Predict();
 
-    cout << "x_ predicted = " << endl << ekf_.x_ << endl;
-    cout << "P_ predicted = " << endl << ekf_.P_ << endl;
+    //cout << "x_ predicted = " << endl << ekf_.x_ << endl;
+    //cout << "P_ predicted = " << endl << ekf_.P_ << endl;
 
     /*****************************************************************************
      *  Update
@@ -199,7 +199,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     }
 
     // print the output
-    cout << "x_ updated = " << endl << ekf_.x_ << endl;
-    cout << "P_ updated = " << endl << ekf_.P_ << endl;
+    cout << endl << "x_ updated = " << endl << ekf_.x_ << endl;
+    cout << endl << "P_ updated = " << endl << ekf_.P_ << endl;
   }
 }
