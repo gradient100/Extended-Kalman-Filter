@@ -56,17 +56,25 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   */
     // Normalize phi for z
     VectorXd z_copy = z;
+    //float epsilon = 0;
+    //float epsilon =0.005;
+    float epsilon = 0.03;
     double phi = z[1];
     double pi = atan(1)*4;
     bool normalized = false;
-    while (!(phi >= -1*pi-0.005 && phi <= pi+0.005))
+    if (!(phi >= -1*pi-epsilon && phi <= pi+epsilon))
     {
-      while (phi < -1*pi)
+      while (phi < -1*pi-epsilon)
           phi += 2*pi;
-      while (phi > pi)
+      while (phi > pi-epsilon)
           phi -= 2*pi; 
       normalized = true;
     }
+    // if (phi >= pi)
+    //   phi = pi;
+    // if (phi <= -1*pi)
+    //   phi = -1*pi;
+  
     z_copy[1] = phi;
 
     if (normalized)
